@@ -6,9 +6,7 @@ import { Search } from "../components/Search";
 import { ShowMovies } from "../components/ShowMovies";
 
 export const Home = () => {
-    const [movies, setMovies] = useState<IMovie[]>(
-         JSON.parse(localStorage.getItem("movies") || "[]")
-    );
+    const [movies, setMovies] = useState<IMovie[]>([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -28,7 +26,6 @@ export const Home = () => {
         const data: IOmdbResponse = await response.json();
     
         setMovies(data.Search);
-        localStorage.setItem("movies", JSON.stringify(data.Search));
       };
 
       return <>
