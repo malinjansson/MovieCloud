@@ -1,0 +1,36 @@
+import { useEffect, useState } from "react";
+import { getHpMovies } from "../services/movieService";
+import { IOmdbResponse } from "../models/IOmdbResponse";
+import { IMovie } from "../models/IMovie";
+import { Search } from "../components/Search";
+
+export const Home = () => {
+    const [Movies, setMovies] = useState<IMovie[]>(
+         JSON.parse(localStorage.getItem("movies") || "[]")
+    );
+
+    useEffect(() => {
+        const getData = async () => {
+          const data = await getHpMovies();
+          setMovies(data);
+        };
+    
+        if (Movies.length > 0) return;
+        getData();
+      });
+
+      const search = async (searchText: string) => {
+        const response = await fetch(
+          "https://omdbapi.com/?apikey=5d31eca0&&s=" + searchText
+        );
+    
+        const data: IOmdbResponse = await response.json();
+    
+        setMovies(data.Search);
+        localStorage.setItem("movies", JSON.stringify(data.Search));
+      };
+
+      return <>
+      < Search search={search}/>
+  </>
+};
