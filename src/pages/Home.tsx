@@ -3,9 +3,10 @@ import { getHpMovies } from "../services/movieService";
 import { IOmdbResponse } from "../models/IOmdbResponse";
 import { IMovie } from "../models/IMovie";
 import { Search } from "../components/Search";
+import { ShowMovies } from "../components/ShowMovies";
 
 export const Home = () => {
-    const [Movies, setMovies] = useState<IMovie[]>(
+    const [movies, setMovies] = useState<IMovie[]>(
          JSON.parse(localStorage.getItem("movies") || "[]")
     );
 
@@ -15,7 +16,7 @@ export const Home = () => {
           setMovies(data);
         };
     
-        if (Movies.length > 0) return;
+        if (movies.length > 0) return;
         getData();
       });
 
@@ -32,5 +33,6 @@ export const Home = () => {
 
       return <>
       < Search search={search}/>
+      < ShowMovies movies={movies} />
   </>
 };
