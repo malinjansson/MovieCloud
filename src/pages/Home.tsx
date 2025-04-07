@@ -4,6 +4,7 @@ import { IOmdbResponse } from "../models/IOmdbResponse";
 import { IMovie } from "../models/IMovie";
 import { Search } from "../components/Search";
 import { ShowMovies } from "../components/ShowMovies";
+import "./../styles/home.scss";
 
 export const Home = () => {
     const [movies, setMovies] = useState<IMovie[]>([]);
